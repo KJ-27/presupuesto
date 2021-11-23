@@ -1,12 +1,22 @@
 import React, { useCallback, useState } from "react";
 import Pregunta from "./components/Pregunta";
 import Formulario from "./components/Formulario";
+import Listado from "./components/Listado";
 
 function App() {
   //Definir State
   const [presupuesto, guardarProsupuesto] = useState(0);
   const [restante, guardarRestante] = useState(0);
   const [mostarPregunta, actualizarPregunta] = useState(true);
+  const [gastos, guardatGastos] = useState([]);
+
+  //Agregar un nuevo gasto
+  const agregarNuevoGasto = gasto => {
+    guardatGastos([
+      ...gastos,
+      gasto
+    ])
+  };
 
   return (
     <div className="container">
@@ -23,9 +33,15 @@ function App() {
           ) : (
             <div className="row">
               <div className="one-half column">
-                <Formulario />
+                <Formulario 
+                  agregarNuevoGasto={agregarNuevoGasto}
+                />
               </div>
-              <div className="one-half column">2</div>
+              <div className="one-half column">
+                <Listado 
+                  gastos={gastos}
+                />
+              </div>
             </div>
           )}
         </div>
